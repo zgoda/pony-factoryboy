@@ -14,3 +14,6 @@ script:
   - pytest --cov-branch --cov-report xml --cov=pony_factoryboy tests
   - python setup.py --quiet build_sphinx
   - python setup.py --quiet sdist bdist_wheel
+after_success:
+  - curl https://deepsource.io/cli | sh
+  - test $TRAVIS_PYTHON_VERSION = "3.6" && ./bin/deepsource report --analyzer test-coverage --key python --value-file ./coverage.xml
