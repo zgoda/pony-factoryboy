@@ -1,0 +1,16 @@
+os: linux
+language: python
+cache: pip
+git:
+  quiet: true
+python:
+  - "3.6"
+  - "3.7"
+  - "3.8"
+install:
+  - pip install -q -U -e .[test] --upgrade-strategy eager
+  - pip install -q -U Sphinx wheel
+script:
+  - pytest --cov-branch --cov-report xml --cov=pony_factoryboy tests
+  - python setup.py --quiet build_sphinx
+  - python setup.py --quiet sdist bdist_wheel
